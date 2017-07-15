@@ -18,8 +18,8 @@ const userSchema = new Schema({
   password: String
 });
 
-//Activity is the collection name; mongoose will lowercase and pluralize it
-const snippets = mongoose.model('snippets', activitySchema);
+//collection name; mongoose will lowercase and pluralize it
+const snippets = mongoose.model('snippets', snippetSchema);
 const users = mongoose.model('users', userSchema);
 
 module.exports = {snippets, users};

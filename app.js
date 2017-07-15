@@ -1,13 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const models = require('./models');
+//const models = require('./models/snippets');
 const mustacheExpress = require('mustache-express');
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
-const routesLogin = require("./routes/login");
-const routesRegistration = require("./routes/registration");
-const routesIndex = require("./routes/index")
+const routes = require("./routes/routes");
+
 var session = require('express-session');
 
 const app = express();
@@ -21,7 +20,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'mustache')
 app.use(express.static('public'));
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
 app.use(session({
   secret:'hydration',
@@ -29,13 +28,12 @@ app.use(session({
   saveUninitialized:false
 }));
 
+//app.use(routes);
 app.use(routes);
-app.use("/api/login", routesLogin);
-app.use("/api/registration", routesRegistration);
-app.use("api/home", routesIndex);
+
 
 
 
 app.listen(app.get('port'), function(){
-console.log('App running on localhost: 3000', app.get('port'));
+console.log('App running on localhost:', app.get('port'));
 });
