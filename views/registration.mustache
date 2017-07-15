@@ -6,9 +6,13 @@
   </head>
   <body>
 
-    <div class="login">
+    {{#errors}}
+    {{.}}
+    {{/errors}}
+
+    <div class="registration">
       <p class="userPrompt">Enter a username and password.</p>
-      <form action="/" method ="post">
+      <form action="/api/registration" method ="post">
         <label for="username">Username:</label><br>
         <input type="text" name="username" value="" placeholder=" "><br>
         <br>

@@ -15,15 +15,44 @@ const models = require("../models/snippets.js");
  mongoose.connect("mongodb://localhost:27017/codesnippet");
 
 //********REGISTRATION************************************************
-router.get("/api/registration", function(req, res){
+let registration_messages = [];
 
+router.get("/api/registration", function(req, res){
+ res.render("registration");
 });
 
 router.post("/api/registration", function(req, res){
 
+  req.checkBody("username", "Please enter a username.").notEmpty();
+  req.checkBody("password", "Please enter a password.").notEmpty();
+  req.checkBody("confirmpassword", "The passwords do not match.").notEmpty().equals(req.body.password);
+
+  let errors = req.validationErrors();
+   if (errors){
+     errors.forEach(function(error){
+       registration_messages.push(error.msg);
+     });
+     res.render("registration",{errors:registration_messages});
+   }else{
+     let user = ({
+       username: req.body.username,
+       password: req.body.password
+     });
+     //salt and hash the password then store
+
+     //
+     models.users.create(user).then(function(newUser){
+       if (newUser){
+         res.setHeader('Content-Type','application/json');
+         res.status(201).json(newUser);
+       }else{
+         res.status(403).send("No activity found, sorry");
+       }
+     }).catch(function(err){
+       res.status(400).send("Bad request. Please try again.")
+     })
+   }
 });
-
-
 
 
 //******************LOGIN***********************************************

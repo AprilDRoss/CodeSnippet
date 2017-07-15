@@ -19,7 +19,7 @@ const userSchema = new Schema({
 });
 
 //collection name; mongoose will lowercase and pluralize it
-const snippets = mongoose.model('snippets', snippetSchema);
+const snippets = mongoose.model('snippet', snippetSchema);
 const users = mongoose.model('users', userSchema);
 
 module.exports = {snippets, users};
