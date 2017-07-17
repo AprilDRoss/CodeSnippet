@@ -8,6 +8,7 @@ const expressValidator = require("express-validator");
 const routes = require("./routes/routes");
 
 var session = require('express-session');
+var crypto = require('crypto');
 
 const app = express();
 //Set port
@@ -27,6 +28,11 @@ app.use(session({
   resave:false,
   saveUninitialized:false
 }));
+
+
+
+
+
 
 //app.use(routes);
 app.use(routes);

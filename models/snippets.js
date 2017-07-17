@@ -15,7 +15,9 @@ const snippetSchema = new Schema({
 
 const userSchema = new Schema({
   username: String,
-  password: String
+  salt:String,
+  hash: String,
+  iterations: Number
 });
 
 //collection name; mongoose will lowercase and pluralize it
