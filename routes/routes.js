@@ -120,7 +120,7 @@ var passwordAttempt = req.body.password;
     if (passwordAttempt){
       res.redirect("/api/snippets");
     } else{
-      res.redirect("/registration");
+      res.redirect("/api/registration");
       }
   });
 
@@ -128,7 +128,9 @@ var passwordAttempt = req.body.password;
 //get list of all code snipppets
 
 router.get('/api/snippets', function(req, res){
-  res.render("snippets");
+  models.snippets.find({}).then(function(allSnippets){
+    res.render("snippets", {allSnippets:allSnippets});
+  });
 });
 
 router.post('/api/snippets', function(req, res){

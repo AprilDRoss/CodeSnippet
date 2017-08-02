@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../public/snippet.css">
     <title>Code Snippets</title>
   </head>
   <body>
@@ -15,7 +16,7 @@
         <label for="snippetTitle">Enter the Snipper Title:</label><br>
         <input type="text" name="snippetTitle" value="" placeholder=" "><br>
         <br>
-        <label for="snippetBody">Enter the Snipper Body:</label><br>
+        <label class="snippetBody" for="snippetBody">Enter the Snipper Body:</label><br>
         <input type="text" name="snippetBody" value="" placeholder=" "><br>
         <br>
         <label for="optNotes">Enter your Optional Notes:</label><br>
@@ -31,7 +32,10 @@
       </form>
     </div>
 
-
-
+    <div class="allSnippets">
+      {{#allSnippets}}
+      {{.}}
+      {{/allSnippets}}
+    </div>
   </body>
 </html>
