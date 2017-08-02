@@ -6,5 +6,32 @@
   </head>
   <body>
 
+    <div class="snippets">
+      <p class="userPrompt">Enter your code snippet below</p>
+      <form action="/api/snippets" method ="post">
+        <label for="snippetID">Enter Snippet ID:</label><br>
+        <input type="text" name="snippetID" value="" placeholder=" "><br>
+        <br>
+        <label for="snippetTitle">Enter the Snipper Title:</label><br>
+        <input type="text" name="snippetTitle" value="" placeholder=" "><br>
+        <br>
+        <label for="snippetBody">Enter the Snipper Body:</label><br>
+        <input type="text" name="snippetBody" value="" placeholder=" "><br>
+        <br>
+        <label for="optNotes">Enter your Optional Notes:</label><br>
+        <input type="text" name="optNotes" value="" placeholder=" "><br>
+        <br>
+        <label for="snippetLang">Enter the language of the Code Snippet:</label><br>
+        <input type="text" name="snippetLang" value="" placeholder=" "><br>
+        <br>
+        <label for="snippetTag">Enter the Snipper Tag:</label><br>
+        <input type="text" name="snippetTag" value="" placeholder=" "><br>
+        <br>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+
+
   </body>
 </html>
