@@ -90,9 +90,7 @@ router.post("/api/registration", function(req, res){
 
      models.users.create(user).then(function(newUser){
        if (newUser){
-         //res.setHeader('Content-Type','application/json');
-         res.status(201).json(newUser);
-         res.render("/api/snippets")
+         res.redirect("/api/login");
        }else{
          res.status(403).send("The system could not register you, sorry try to register again.");
        }
@@ -118,7 +116,7 @@ models.users.findOne({"username":req.body.username}).then(function(user){
 var passwordAttempt = req.body.password;
 //need to call is PasswordCorrect method here
     if (passwordAttempt){
-      res.redirect("/api/snippets");
+      res.redirect("/api/createsnippets");
     } else{
       res.redirect("/api/registration");
       }
@@ -129,72 +127,62 @@ var passwordAttempt = req.body.password;
 
 router.get('/api/snippets', function(req, res){
   models.snippets.find({}).then(function(allSnippets){
-    res.render("snippets", {allSnippets:allSnippets});
+    res.render("viewsnippets",{snippets:allSnippets});
   });
 });
 
-router.post('/api/snippets', function(req, res){
+router.get('/api/createsnippets', function(req, res){
+  res.render("snippets");
+});
+
+router.post('/api/createsnippets', function(req, res){
   let snippet = ({
     id:req.body.snippetID,
     title:req.body.snippetIDTitle,
-    body:req.body.snipperBody,
+    body:req.body.snippetBody,
     optNotes:req.body.optNotes,
     lang:req.body.snippetLang,
-    snippetTag:req.body.snipperTag
+    snippetTag:req.body.snippetTag
   });
 
   models.snippets.create(snippet).then(function(newSnippet){
     if (newSnippet){
-      res.setHeader('Content-Type','application/json');
-      res.status(201).json(newSnippet);
+      res.redirect("/api/snippets");
+    }else{
+      res.redirect("/api/snippets")
+    }
+  });
+});
+
+router.get('/api/snippets/:lang', function(req, res){
+  models.snippets.find({lang:req.params.lang}).then(function(newSnippet){
+    console.log(newSnippet);
+    if (newSnippet){
+      res.render("viewsnippets",{snippets:newSnippet});
     }else{
       res.status(403).send("No snippet found, sorry");
     }
-  }).catch(function(err){
-    res.status(400).send("Bad request. Please try again.")
-  })
+  });
 });
 
-router.get('api/snippets/:lang', function(req, res){
-  models.snippets.findOne({lang:req.params.lang}).then(function(newSnippet){
+router.get('/api/snippets/:snippetTag', function(req, res){
+  models.snippets.find({lang:req.params.snippetTag}).then(function(newSnippet){
     if (newSnippet){
-      res.setHeader('Content-Type','application/json');
-      res.status(201).json(newSnippet);
+      res.render("viewsnippets",{snippets:newSnippet});
     }else{
       res.status(403).send("No activity found, sorry");
     }
-  }).catch(function(err){
-    res.status(400).send("Bad request. Please try again.")
-  })
-  res.render("snippets");
+  });
 });
 
-router.get('api/snippets/:snippetTag', function(req, res){
-  models.snippets.findOne({lang:req.params.snippetTag}).then(function(newSnippet){
-    if (newSnippet){
-      res.setHeader('Content-Type','application/json');
-      res.status(201).json(newSnippet);
-    }else{
-      res.status(403).send("No activity found, sorry");
-    }
-  }).catch(function(err){
-    res.status(400).send("Bad request. Please try again.")
-  })
-  res.render("snippets");
-});
-
-router.get('api/snippets/:id', function(req, res){
+router.get('/api/snippets/id/:id', function(req, res){
   models.snippets.findOne({id:req.params.id}).then(function(newSnippet){
     if (newSnippet){
-      res.setHeader('Content-Type','application/json');
-      res.status(201).json(newSnippet);
+      res.render("viewsnippets",{snippets:newSnippet});
     }else{
       res.status(403).send("No activity found, sorry");
     }
-  }).catch(function(err){
-    res.status(400).send("Bad request. Please try again.")
-  })
-  res.render("snippets");
+  });
 });
 
 module.exports = router;

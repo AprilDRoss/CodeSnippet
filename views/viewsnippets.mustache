@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>View Snippets</title>
+  </head>
+  <body>
+    <h1>See the Snippets Below:</h1>
+    <!-- {{#snippets}}
+     SnippetID:{{id}}
+     Snippet Title:{{title}}
+     Snippet Body:{{body}}
+     Optional Snippet Notes:{{optNotes}}
+     Snippet Language:{{snippetLanglang}}
+     Snippet Tag:{{snipperTag}}
+    {{/snippets}} -->
+    <ul>
+    {{#snippets}}
+    <li>{{.}}</li>
+    {{/snippets}}
+  </ul>
+  </body>
+</html>
