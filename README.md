@@ -1,1 +1,1 @@
-An API application developed using  Node.js, Express.js, Mongoose, and MongoDB. The application is a database that stores snippets of code. The user can add a add code snippet, delete a code snippet, and search for code snippets by language.
+An API application developed using  Node.js, Express.js, Mongoose, and MongoDB. The application is a database that stores snippets of code. The user can add a code snippet, delete a code snippet, and search for code snippets by language.
